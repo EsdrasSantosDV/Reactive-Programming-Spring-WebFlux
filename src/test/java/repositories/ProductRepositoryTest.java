@@ -3,7 +3,11 @@ package repositories;
 import domain.Product;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,8 +34,6 @@ class ProductRepositoryTest {
        //MEU REI NEM PRECISO FALAR NADA, QUE TU JA E O CARA
     }
 
-
-
     //ME DE RJXS MEEEE DEEEEEE PAPAI
     //AGORA TAMO EM CASA
     @Test()
@@ -46,6 +48,31 @@ class ProductRepositoryTest {
     void testingFilterOperator(){
         this.productRepository.findAll().filter(p->p.getPrice()<1000).subscribe(System.out::println);
     }
+
+
+    //BLOCKING VC JA COMPLETA
+    @Test()
+    @DisplayName("Testing block flux")
+    void testingBlockFlux(){
+        Product product=this.productRepository.findAll().blockFirst();
+
+        System.out.println(product.toString());
+    }
+
+
+    @Test()
+    @DisplayName("Testing flux")
+    void testingFlux(){
+        Flux<Product> fluxProduct=this.productRepository.findAll();
+
+        Mono<List<Product>> products=fluxProduct.collectList();
+
+        products.subscribe(value->{
+            value.forEach(System.out::println);
+        });
+
+    }
+
 
 
 
