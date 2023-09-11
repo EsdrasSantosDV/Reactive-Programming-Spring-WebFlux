@@ -72,6 +72,16 @@ class ProductRepositoryTest {
         });
 
     }
+    //IGUAL NO RXJS OS OPERADORES SÃO APLICADOS NUMA OORDEM, SO NÃO HA O PIPE
+
+    @Test()
+    @DisplayName("Testing flux FILTER NAME")
+    void filterTestingName() {
+        Flux<Product> fluxProduct = this.productRepository.findAll();
+        fluxProduct.filter(v -> v.getName().equals("Heineken")).collectList().subscribe(value -> {
+            value.forEach(System.out::println);
+        });
+    }
 
 
 
