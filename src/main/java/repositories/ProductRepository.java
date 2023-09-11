@@ -19,12 +19,13 @@ public class ProductRepository implements IProductRepository {
     Product leite=Product.builder().id(15).price(112.11).description("leite bm").name("REi do LEite").build();
 
 
-    
+    //O MONO E ELE EMITE 0 OU 1 VALOR  OU ERRO
     @Override
     public Mono<Product> findById(Integer id) {
         return Mono.just(cerveja);
     }
 
+    //O FLUX ELE EMITE O OU N VALORES OU ERRO MESMO
     @Override
     public Flux<Product> findAll() {
         //SERIA COMO SE TIVESSE REALIZANDO UM OF DO RXJS MEU CARO E DEPOIS COMPLETASSE
