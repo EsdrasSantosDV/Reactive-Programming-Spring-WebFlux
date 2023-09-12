@@ -22,7 +22,7 @@ public class ProductRepository implements IProductRepository {
     //O MONO E ELE EMITE 0 OU 1 VALOR  OU ERRO
     @Override
     public Mono<Product> findById(Integer id) {
-        return Mono.just(cerveja);
+        return Flux.just(cerveja,cerveja2,cerveja3,vinho,leite).collectList().flatMapMany(Flux::fromIterable).filter(p->p.getId()==id).singleOrEmpty();
     }
 
     //O FLUX ELE EMITE O OU N VALORES OU ERRO MESMO
