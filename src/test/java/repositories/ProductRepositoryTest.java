@@ -60,6 +60,24 @@ class ProductRepositoryTest {
     }
 
 
+    //SERIA TIPO UM CATCH ERROR  ESSE DO ON ERROR
+    @Test()
+    @DisplayName("Testing find Product Not Found")
+    void testingFindProductNotFound(){
+        Flux<Product> fluxProduct=this.productRepository.findAll();
+
+        Mono<Product> monoProduct=fluxProduct.filter(p->p.getId().equals(1000)).single().doOnError(throwable -> {
+            System.out.println("Product not found");
+        });
+
+        monoProduct.subscribe(next->{}
+                             ,error->{
+            System.out.println("Product not found");
+                });
+    }
+
+
+
     @Test()
     @DisplayName("Testing flux")
     void testingFlux(){
